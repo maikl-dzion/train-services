@@ -1,47 +1,26 @@
-# ServicesController
-
-require_once __DIR__ . '/vendor/autoload.php';
-
-use App\Services\Jwt\JwtAuthController;
-use App\Services\Logger\Logger;
-
-use App\Services\Logger\LoggerInterface;
-use App\Services\Jwt\JwtAuthInterface;
+# TrainServices
 
 #####
-##### Пример использования Jwt авторизации
+##### /web   frontend
 
 ######
-$data  = [
-'id' => '234',
-'username' => 'Maikl',
-'email' => 'dzr@mail.ru'
-];
+npm install
 ######
-
-###### $jwt = new JwtAuthController();
-###### $token  = $jwt->encode($data);  // Создаем токен
-###### $verify = $jwt->decode($token); // Проверям токен
-
-lg(['token'  => $token, 'verify' => $verify,]);
+npm run serve
+######
+npm run build
+######
 
 #####
-
-##### Пример использования класса Logger
-
-$path    = __DIR__ . '/log';
-###### $logger  = new Logger($path);
+##### /api    backend
 
 ######
-$title = 'Error Logger';
-$data  = [
-'id'       => '234',
-'username' => 'Maikl',
-'email'    => 'dzr@mail.ru',
-];
+composer install
 ######
+запуск тестов :
+######
+vendor/phpunit/phpunit/phpunit tests/TrainServiceTest.php
 
-###### $result = $logger->log($data, $title);
-###### $log = $logger->read();
-
-lg($log);
+######
+логи: /log/log.txt
+######

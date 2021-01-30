@@ -15,9 +15,10 @@ require_once __DIR__ . '/vendor/autoload.php';
 use App\Logger;
 use App\TrainService;
 
+$path    = __DIR__ . '/log';
+$logger  = new Logger($path);
 
 $route = 'train-list';
-
 if(!empty($_SERVER['PATH_INFO']))
    $route = trim($_SERVER['PATH_INFO'], '/');
 
@@ -45,8 +46,14 @@ $trainService = new TrainService($auth);
 try {
     $results = $trainService->$action();
 } catch (\SoapFault $err) {
+
     $errorMessage = $err->getMessage();
-    getResponse(['error' => $errorMessage]);
+    $error = ['error' => $errorMessage];
+
+    $title = 'Error Logger';
+    $logger->log($error, $title);
+
+    getResponse($error);
 }
 
 getResponse((array)$results);
